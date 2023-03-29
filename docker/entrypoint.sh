@@ -157,7 +157,20 @@ set -x
 # Output generated in 58.78 seconds (0.41 tokens/s, 24 tokens, context 1453)
 #python server.py --cpu --model llama-7b-hf --lora luotuo-lora-7b-0.3 --load-in-8bit --cai-chat --listen --listen-port=8888
 
-
+# FAIL! ValueError: Loading models/chatglm-6b requires you to execute the configuration file in that repo on your local machine. Make sure you have read the code there to avoid malicious use, then set the option `trust_remote_code=True` to remove this error.
+# FAIL! ImportError: This modeling file requires the following packages that were not found in your environment: icetk. Run `pip install icetk`
+# pip install icetk
+# FAIL! RuntimeError: mixed dtype (CPU): expect input to have scalar type of BFloat16
+# WORKS! 
+# Output generated in 33.75 seconds (0.86 tokens/s, 29 tokens, context 39)
+# Output generated in 145.04 seconds (1.37 tokens/s, 199 tokens, context 72)
+# Input length of input_ids is 353, but `max_length` is set to 200. This can lead to unexpected behavior. You should consider increasing `max_new_tokens`.
+# Output generated in 129.36 seconds (1.54 tokens/s, 199 tokens, context 353)
+# Input length of input_ids is 569, but `max_length` is set to 200. This can lead to unexpected behavior. You should consider increasing `max_new_tokens`.
+# Output generated in 147.52 seconds (1.35 tokens/s, 199 tokens, context 569)
+# python server.py --cpu --model chatglm-6b --cai-chat --listen --listen-port=8888
+# FAIL! torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 96.00 MiB (GPU 0; 8.00 GiB total capacity; 6.40 GiB already allocated; 57.54 MiB free; 6.40 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+# python server.py --model chatglm-6b --cai-chat --listen --listen-port=8888
 
 # FAIL!
 # TypeError: Linear.__init__() got an unexpected keyword argument 'has_fp16_weights'
