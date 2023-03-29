@@ -145,6 +145,24 @@ def generate_reply(question, max_new_tokens, do_sample, temperature, top_p, typi
             print(f"Output generated in {(t1-t0):.2f} seconds ({new_tokens/(t1-t0):.2f} tokens/s, {new_tokens} tokens, context {original_tokens})")
             return
 
+    if shared.is_ChatGLM:
+        history = []
+
+        if not (shared.args.chat or shared.args.cai_chat):
+            yield formatted_outputs(question, shared.model_name)
+        
+        for reply, history in shared.model.stream_chat(shared.tokenizer, question, history, max_length=max_new_tokens, top_p=top_p,
+                                                temperature=temperature):
+            if not (shared.args.chat or shared.args.cai_chat):
+                reply = original_question + apply_extensions(reply, "output")
+            
+            updates = []
+            for query, response in history:
+                updates.append("User：" + query)
+                updates.append("ChatGLM-6B：" + response)
+            
+            yield formatted_outputs(reply, shared.model_name)
+
     input_ids = encode(question, max_new_tokens)
     original_input_ids = input_ids
     output = input_ids[0]

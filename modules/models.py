@@ -43,9 +43,10 @@ def load_model(model_name):
 
     shared.is_RWKV = 'rwkv-' in model_name.lower()
     shared.is_llamacpp = len(list(Path(f'models/{model_name}').glob('ggml*.bin'))) > 0
+    shared.is_ChatGLM = model_name.lower().startswith('chatglm-')    
 
     # Default settings
-    if not any([shared.args.cpu, shared.args.load_in_8bit, shared.args.wbits, shared.args.auto_devices, shared.args.disk, shared.args.gpu_memory is not None, shared.args.cpu_memory is not None, shared.args.deepspeed, shared.args.flexgen, shared.is_RWKV, shared.is_llamacpp]):
+    if not any([shared.args.cpu, shared.args.load_in_8bit, shared.args.wbits, shared.args.auto_devices, shared.args.disk, shared.args.gpu_memory is not None, shared.args.cpu_memory is not None, shared.args.deepspeed, shared.args.flexgen, shared.is_RWKV, shared.is_llamacpp, shared.is_ChatGLM]):
         if any(size in shared.model_name.lower() for size in ('13b', '20b', '30b')):
             model = AutoModelForCausalLM.from_pretrained(Path(f"{shared.args.model_dir}/{shared.model_name}"), device_map='auto', load_in_8bit=True)
         else:
@@ -109,6 +110,18 @@ def load_model(model_name):
         print(f"llama.cpp weights detected: {model_file}\n")
 
         model, tokenizer = LlamaCppModel.from_pretrained(model_file)
+
+    # ChatGLM
+    elif shared.is_ChatGLM:
+        from transformers import AutoModel
+        params = {}
+        # params["torch_dtype"] = torch.float16 
+        params["trust_remote_code"] = True
+        tokenizer = AutoTokenizer.from_pretrained(Path(f'models/{model_name}'), **params)
+        model = AutoModel.from_pretrained(Path(f"models/{shared.model_name}"), **params).float()
+
+        model = model.eval()
+
         return model, tokenizer
 
     # Custom
