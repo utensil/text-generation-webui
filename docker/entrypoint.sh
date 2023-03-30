@@ -179,6 +179,19 @@ set -x
 # WORKS but WORSE
 # python server.py --model llama-7b-hf --lora alpaca-lora-7b-zh-en --auto-devices --gpu-memory 5 --cai-chat --listen --listen-port=8888
 
+# TRAINING Section
+
+# FAIL! torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 172.00 MiB (GPU 0; 8.00 GiB total capacity; 6.38 GiB already allocated; 71.54 MiB free; 6.38 GiB reserved in total by PyTorch) 
+# python server.py --cpu --model llama-7b-hf --load-in-8bit --cai-chat --listen --listen-port=8888
+
+# FAIL! TypeError: Linear.__init__() got an unexpected keyword argument 'has_fp16_weights'
+# python server.py  --auto-devices --gpu-memory 5 --model llama-7b-hf --load-in-8bit --cai-chat --listen --listen-port=8888
+
+# FAIL! NotImplementedError: Cannot copy out of meta tensor; no data!
+# python server.py  --auto-devices --gpu-memory 4 --model llama-7b-hf --cai-chat --listen --listen-port=8888
+
+python server.py --model llama-7b --load-in-8bit
+
 # UNTESTED Section
 
 # llama-13b-4bit

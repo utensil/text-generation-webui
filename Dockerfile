@@ -4,18 +4,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y git build-essential software-properties-common gnupg
 
-# BEFORE `docker compose up`
-# git clone https://github.com/oobabooga/text-generation-webui.git
-# cd text-generation-webui
-
 COPY . /app
 
 WORKDIR /app
-
-# BEFORE `docker compose up`
-# mkdir installers
-# cd installers
-# wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda-repo-debian11-11-7-local_11.7.1-515.65.01-1_amd64.deb
 
 RUN dpkg -i /app/installers/cuda-repo-debian11-11-7-local_11.7.1-515.65.01-1_amd64.deb
 RUN cp /var/cuda-repo-debian11-11-7-local/cuda-*-keyring.gpg /usr/share/keyrings/
