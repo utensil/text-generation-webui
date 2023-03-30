@@ -190,7 +190,7 @@ set -x
 # FAIL! NotImplementedError: Cannot copy out of meta tensor; no data!
 # python server.py  --auto-devices --gpu-memory 4 --model llama-7b-hf --cai-chat --listen --listen-port=8888
 
-python server.py --model llama-7b --load-in-8bit
+python server.py --model llama-7b-hf --load-in-8bit
 
 # UNTESTED Section
 
