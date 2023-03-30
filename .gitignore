@@ -10,6 +10,7 @@ models
 repositories
 softprompts
 torch-dumps
+installers
 *pycache*
 */*pycache*
 */*/pycache*
