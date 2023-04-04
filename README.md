@@ -5,7 +5,7 @@ colorFrom: pink
 colorTo: indigo
 sdk: gradio
 sdk_version: 3.23.0
-app_file: server.py
+app_file: app.py
 pinned: false
 license: agpl-3.0
 ---
