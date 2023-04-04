@@ -55,24 +55,19 @@ def get_file(url, output_folder):
                 t.update(len(data))
                 f.write(data)
 
-def get_file_by_aria2(args):
-    url = args[0]
-    output_folder = args[1]
-    idx = args[2]
-    tot = args[3]
+def get_file_by_aria2(url, output_folder):
     filename = url.split('/')[-1]
 
-    print(f"Downloading file {idx} of {tot}...")
     print(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M {url} -d {output_folder}")
     r = requests.get(url, stream=True)
     total_size = int(r.headers.get('content-length', 0))
     
-    if (output_folder / Path(filename)).exists() and (output_folder / Path(filename)).stat().st_size == total_size:
-        print(f"File {filename} already exists and has the same size. Skipping download.")
+    if (output_folder / Path(filename)).exists() and (output_folder / Path(filename)).stat().st_size == total_size and not (output_folder / Path(f"{filename}.aria2")).exists():
+        print(f"File {filename} already downloaded.")
         return
 
     # call command line aria2c to download
-    subprocess.run(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M {url} -d {output_folder} -o {filename}", shell=True, check=True)
+    subprocess.run(f"aria2c -c -x 4 -s 4 -k 1M {url} -d {output_folder} -o {filename}", shell=True, check=True)
 
 def sanitize_branch_name(branch_name):
     pattern = re.compile(r"^[a-zA-Z0-9._-]+$")
