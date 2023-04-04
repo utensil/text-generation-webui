@@ -16,4 +16,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://utensil:$HF_TOKEN@huggingface.co/spaces/utensil/text-generation-webui main
+        run: git push https://utensil:$HF_TOKEN@huggingface.co/spaces/utensil/text-generation-webui
