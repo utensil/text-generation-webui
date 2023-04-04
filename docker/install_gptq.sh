@@ -13,8 +13,11 @@ if [ ! -d "GPTQ-for-LLaMa" ]; then
 fi
 
 cd GPTQ-for-LLaMa
+
+pip install -r requirements.txt
+
 if [ -z ${CUDA_HOME+x} ]; then
-    pip install -r requirements.txt
+    echo "Missing CUDA"
 else
     python setup_cuda.py install
 fi
