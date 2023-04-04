@@ -1,0 +1,1 @@
+ls -1 models/**/tokenizer_config.json|xargs sed -i -e 's/LLaMATokenizer/LlamaTokenizer/g'
