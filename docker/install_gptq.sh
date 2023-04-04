@@ -14,10 +14,8 @@ fi
 
 cd GPTQ-for-LLaMa
 
+pip uninstall quant-cuda
+
 pip install -r requirements.txt
 
-if [ -z ${CUDA_HOME+x} ]; then
-    echo "Missing CUDA"
-else
-    python setup_cuda.py install
-fi
+python setup_cuda.py install || true
