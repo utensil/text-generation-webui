@@ -55,3 +55,4 @@ subprocess.run(f"bash ./docker/fix_llama.sh", shell=True, check=True)
 
 subprocess.run(f"pip install deepspeed==0.8.3", shell=True, check=True)
 
+subprocess.run(f"deepspeed --num_gpus=1 server.py --model decapoda-research_llama-7b-hf --model_type llama --cai-chat --deepspeed", shell=True, check=True)
