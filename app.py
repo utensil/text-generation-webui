@@ -51,5 +51,7 @@ subprocess.run(f"python download-model.py decapoda-research/llama-7b-hf", shell=
 
 subprocess.run(f"bash ./docker/fix_llama.sh", shell=True, check=True)
 
-subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model decapoda-research_llama-7b-hf --model_type llama --load-in-8bit --cai-chat", shell=True, check=True)
+# subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model decapoda-research_llama-7b-hf --model_type llama --load-in-8bit --cai-chat", shell=True, check=True)
+
+subprocess.run(f"pip install deepspeed==0.8.3", shell=True, check=True)
 
