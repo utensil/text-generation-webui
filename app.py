@@ -55,7 +55,7 @@ subprocess.run(f"bash ./docker/install_gptq.sh", shell=True, check=True)
 
 subprocess.run(f"python download-model.py TheBloke/galpaca-30B-GPTQ-4bit-128g", shell=True, check=True)
 
-subprocess.run(f"mv models/TheBloke_galpaca-30B-GPTQ-4bit-128g/galpaca-30B-4bit-128g.no-act-order.pt models/TheBloke_galpaca-30B-GPTQ-4bit-128g/TheBloke_galpaca-30B-GPTQ-4bit-128g.pt", shell=True, check=True)
+subprocess.run(f"mv models/TheBloke_galpaca-30B-GPTQ-4bit-128g/galpaca-30B-4bit-128g.no-act-order.pt models/TheBloke_galpaca-30B-GPTQ-4bit-128g/TheBloke_galpaca-30B-GPTQ-4bit-128g-4bit.pt", shell=True, check=True)
 
 subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model TheBloke_galpaca-30B-GPTQ-4bit-128g --wbits 4 --groupsize 128 --chat", shell=True, check=True)
 
