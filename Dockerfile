@@ -64,5 +64,10 @@ RUN . /app/venv/bin/activate && \
 RUN cp /app/venv/lib/python3.10/site-packages/bitsandbytes/libbitsandbytes_cuda118.so /app/venv/lib/python3.10/site-packages/bitsandbytes/libbitsandbytes_cpu.so
 
 COPY . /app/
+
+RUN python download-model.py TheBloke/galpaca-30B-GPTQ-4bit-128g
+
+RUN mv models/TheBloke_galpaca-30B-GPTQ-4bit-128g/galpaca-30B-4bit-128g.no-act-order.pt models/TheBloke_galpaca-30B-GPTQ-4bit-128g/TheBloke_galpaca-30B-GPTQ-4bit-128g-4bit.pt
+
 ENV CLI_ARGS=""
 CMD . /app/venv/bin/activate && python3 server.py ${CLI_ARGS}

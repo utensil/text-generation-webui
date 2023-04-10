@@ -1,3 +1,15 @@
+---
+title: Text Generation Webui
+emoji: ⚡
+colorFrom: pink
+colorTo: indigo
+sdk: docker
+sdk_version: 3.23.0
+app_port: 7860
+pinned: false
+license: agpl-3.0
+---
+
 # Text generation web UI
 
 A gradio web UI for running Large Language Models like LLaMA, llama.cpp, GPT-J, Pythia, OPT, and GALACTICA.
