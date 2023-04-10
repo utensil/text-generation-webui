@@ -26,7 +26,7 @@ import subprocess
 
 # subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model chavinlo_alpaca-native --model_type llama --cai-chat", shell=True, check=True)
 
-# subprocess.run(f"bash ./docker/install_gptq.sh", shell=True, check=True)
+subprocess.run(f"bash ./docker/install_gptq.sh", shell=True, check=True)
 
 # subprocess.run(f"python download-model.py anon8231489123/vicuna-13b-GPTQ-4bit-128g", shell=True, check=True)
 # FAST humor answers but not much sense
@@ -47,11 +47,15 @@ import subprocess
 # Output generated in 24.61 seconds (8.09 tokens/s, 199 tokens, context 1603)
 # subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model anon8231489123_vicuna-13b-GPTQ-4bit-128g --model_type llama --cai-chat --wbits 4 --groupsize 128", shell=True, check=True)
 
-subprocess.run(f"python download-model.py decapoda-research/llama-7b-hf", shell=True, check=True)
+# subprocess.run(f"python download-model.py decapoda-research/llama-7b-hf", shell=True, check=True)
 
-subprocess.run(f"bash ./docker/fix_llama.sh", shell=True, check=True)
+# subprocess.run(f"bash ./docker/fix_llama.sh", shell=True, check=True)
 
-subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model decapoda-research_llama-7b-hf --model_type llama --load-in-8bit --cai-chat", shell=True, check=True)
+# subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model decapoda-research_llama-7b-hf --model_type llama --load-in-8bit --cai-chat", shell=True, check=True)
+
+subprocess.run(f"python download-model.py TheBloke/galpaca-30B-GPTQ-4bit-128g", shell=True, check=True)
+
+subprocess.run(f"python server.py --auto-devices --gpu-memory 22 --model TheBloke_galpaca-30B-GPTQ-4bit-128g --wbits 4 --groupsize 128 --chat", shell=True, check=True)
 
 # subprocess.run(f"pip install deepspeed==0.8.3", shell=True, check=True)
 
