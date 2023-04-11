@@ -63,7 +63,7 @@ RUN cp /app/venv/lib/python3.10/site-packages/bitsandbytes/libbitsandbytes_cuda1
 
 COPY . /app/
 
-RUN python3 download-model.py TheBloke/galpaca-30B-GPTQ-4bit-128g
+RUN . /app/venv/bin/activate && python3 download-model.py TheBloke/galpaca-30B-GPTQ-4bit-128g
 
 RUN mv models/TheBloke_galpaca-30B-GPTQ-4bit-128g/galpaca-30B-4bit-128g.no-act-order.pt models/TheBloke_galpaca-30B-GPTQ-4bit-128g/TheBloke_galpaca-30B-GPTQ-4bit-128g-4bit.pt
 
