@@ -43,8 +43,6 @@ RUN . /app/venv/bin/activate && \
     pip3 install torch torchvision torchaudio
 
 RUN git clone https://github.com/qwopqwop200/GPTQ-for-LLaMa /app/repositories/GPTQ-for-LLaMa
-RUN . /app/venv/bin/activate && \
-    pip3 install /app/repositories/GPTQ-for-LLaMa/*.whl
 
 COPY extensions/api/requirements.txt /app/extensions/api/requirements.txt
 COPY extensions/elevenlabs_tts/requirements.txt /app/extensions/elevenlabs_tts/requirements.txt
