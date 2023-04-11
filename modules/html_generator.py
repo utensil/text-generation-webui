@@ -116,7 +116,7 @@ def make_thumbnail(image):
 def get_image_cache(path):
     cache_folder = Path("cache")
     if not cache_folder.exists():
-        cache_folder.mkdir()
+        cache_folder.mkdir(parents=True)
 
     mtime = os.stat(path).st_mtime
     if (path in image_cache and mtime != image_cache[path][0]) or (path not in image_cache):
