@@ -37,8 +37,9 @@ USER user
 
 # Set home to the user's home directory
 ENV HOME=/home/user \
-	PATH=/home/user/.local/bin:$PATH \
-    APP=$HOME/app
+	PATH=/home/user/.local/bin:$PATH
+
+ENV APP=$HOME/app
 
 RUN --mount=type=cache,target=$HOME/.cache/pip pip3 install virtualenv
 
