@@ -34,9 +34,6 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ARG WEBUI_VERSION
-RUN test -n "${WEBUI_VERSION}" && git reset --hard ${WEBUI_VERSION} || echo "Using provided webui source"
-
 RUN virtualenv /app/venv
 RUN . /app/venv/bin/activate && \
     pip3 install --upgrade pip setuptools && \
