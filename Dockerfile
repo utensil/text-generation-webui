@@ -26,7 +26,7 @@ LABEL maintainer="Your Name <your.email@example.com>"
 LABEL description="Docker image for GPTQ-for-LLaMa and Text Generation WebUI"
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y git python3 python3-pip make g++ && \
+    apt-get install --no-install-recommends -y git build-essential python3 python3-pip make g++ python3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Set up a new user named "user" with user ID 1000
@@ -40,6 +40,8 @@ ENV HOME=/home/user \
 	PATH=/home/user/.local/bin:$PATH
 
 ENV APP=$HOME/app
+
+RUN mkdir -p $HOME/.cache/pip
 
 RUN --mount=type=cache,target=$HOME/.cache/pip pip3 install virtualenv
 
@@ -74,9 +76,13 @@ RUN cp $APP/venv/lib/python3.10/site-packages/bitsandbytes/libbitsandbytes_cuda1
 # Copy the current directory contents into the container at $APP/ setting the owner to the user
 COPY --chown=user . $APP/
 
-RUN . $APP/venv/bin/activate && python3 download-model.py TheBloke/galpaca-30B-GPTQ-4bit-128g --threads 16
+RUN chmod a+x $APP/scripts/*.sh
 
-RUN mv models/TheBloke_galpaca-30B-GPTQ-4bit-128g/galpaca-30B-4bit-128g.no-act-order.pt models/TheBloke_galpaca-30B-GPTQ-4bit-128g/TheBloke_galpaca-30B-GPTQ-4bit-128g-4bit.pt
+RUN mkdir -p $HOME/.cache/models/ && mkdir -p $HOME/.cache/loras/
+
+RUN --mount=type=cache,target=$HOME/.cache/models --mount=type=cache,target=$HOME/.cache/loras . $APP/venv/bin/activate && bash $APP/scripts/download_models.sh
+
+# RUN --mount=type=secret,id=FIXES,mode=0444,required=true . $APP/venv/bin/activate && bash -c "$(cat /run/secrets/FIXES)"
 
 ENV CLI_ARGS=""
 CMD . $APP/venv/bin/activate && python3 server.py ${CLI_ARGS}
